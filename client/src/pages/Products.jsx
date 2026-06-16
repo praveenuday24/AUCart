@@ -29,7 +29,7 @@ const Products = () =>{
             <div>
                 {products.map((product) =>(
                     <div 
-                    key={product.id}
+                    key={product._id}
                     style={{
                         border: "1px solid gray",
                         margin: "10px",
@@ -42,7 +42,7 @@ const Products = () =>{
 
                         <h3>{product.title}</h3>
                         <p>₹{product.price}</p>
-                        <Link to={`/products/${product.id}`}>View Details</Link>
+                        <Link to={`/products/${product._id}`}>View Details</Link>
                     </div>
                 ))}
             </div>

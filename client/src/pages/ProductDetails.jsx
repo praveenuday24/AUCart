@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import API from "../api/axios";
+import { useCart } from "../context/cartContext";
+import { Link } from "react-router-dom";
 
 
 
@@ -9,6 +11,7 @@ const ProductDetails = () =>{
     const {id} = useParams();
 
     const[product,setProduct] = useState(null);
+    const  {addToCart} = useCart();
 
     useEffect(()=>{
         fetchProduct();
@@ -44,7 +47,14 @@ const ProductDetails = () =>{
                 ₹{product.price}
             </h2>
 
-            <button>Add to Cart</button>
+            <button
+  onClick={() => {
+    console.log("clicked");
+    addToCart(product);
+  }}
+>
+  Add To Cart
+</button>
         </div>
     )
 }

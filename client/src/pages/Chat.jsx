@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import socket from "../socket/socket";
 import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Chat = () =>{
     const [message,setMessage] = useState("");
@@ -29,6 +30,7 @@ const Chat = () =>{
         socket.on(
             "receive_message",
             (data) =>{
+                toast.info(`${data.user} : ${data.text}`)
                 setMessages(
                     (prev) => [...prev , data]
                 )

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import { useCart } from "../context/cartContext"
+import { toast } from "react-toastify";
 
 const Checkout = () =>{
 
@@ -21,7 +22,7 @@ const Checkout = () =>{
             navigate("/payment");
         }
         catch(error){
-            alert(error.response?.data?.message);
+            toast.error(error.response?.data?.message);
         }
     };
 

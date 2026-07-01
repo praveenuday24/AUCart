@@ -13,6 +13,19 @@ import Orders from './pages/Orders';
 import Chat from './pages/Chat';
 import Payment from './pages/Payment';
 import PaymentSuccess from './pages/PaymentSuccess';
+import NotificationBell from './components/NotificationBell';
+import AdminRoute from './components/AdminRoute';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminUsers from './pages/AdminUsers';
+import AdminAnalytics from './pages/AdminAnalytics';
+import AdminProducts from './pages/AdminProducts';
+import AdminOrders from './pages/AdminOrders';
+import SellerRoute from './components/SellerRoute';
+import SellerAnalytics from './pages/SellerAnalytics';
+import SellerDashboard from './pages/SellerDashboard';
+import SellerOrders from './pages/SellerOrders';
+import SellerProducts from './pages/SellerProducts';
+import AddProduct from './pages/AddProduct';
 
 function App() {
  
@@ -26,6 +39,12 @@ function App() {
         <Link to="/cart">
           Cart
         </Link>
+
+        <Link to="/chat">
+          Chat
+        </Link>
+
+        <NotificationBell/>
     </nav>
 
     <Routes>
@@ -87,6 +106,90 @@ function App() {
       <Route 
       path="/payment-success"
       element={<PaymentSuccess/>}/>
+
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
+            <AdminDashboard/>
+          </AdminRoute>
+        }
+        />
+        <Route
+        path="/admin/products"
+        element={
+            <AdminRoute>
+                <AdminProducts />
+            </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/orders"
+        element={
+            <AdminRoute>
+                <AdminOrders />
+            </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/users"
+        element={
+            <AdminRoute>
+                <AdminUsers />
+            </AdminRoute>
+        }
+      />
+      <Route
+      path="/admin/analytics"
+      element={
+        <AdminRoute>
+          <AdminAnalytics/>
+        </AdminRoute>
+      }/>
+
+      <Route
+      path="/seller"
+      element={
+      <SellerRoute>
+      <SellerDashboard/>
+      </SellerRoute>
+      }
+      />
+
+      <Route
+      path="/seller/products"
+      element={
+      <SellerRoute>
+      <SellerProducts/>
+      </SellerRoute>
+      }
+      />
+
+      <Route
+      path="/seller/orders"
+      element={
+      <SellerRoute>
+      <SellerOrders/>
+      </SellerRoute>
+      }
+      />
+
+      <Route
+      path="/seller/analytics"
+      element={
+      <SellerRoute>
+      <SellerAnalytics/>
+      </SellerRoute>
+      }
+      />
+
+      <Route
+      path="/seller/add-product"
+      element={
+        <SellerRoute>
+          <AddProduct/>
+        </SellerRoute>
+      }/>
 
     </Routes>
     </>

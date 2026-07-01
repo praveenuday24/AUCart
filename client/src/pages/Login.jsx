@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
+import { toast } from "react-toastify";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () =>{
 
@@ -33,13 +35,41 @@ const Login = () =>{
                 response.data.user,
                 response.data.token
             )
-            alert("Login Successful");
-            navigate("/dashboard");
+            let user = response.data.user;
+            toast.success("Login Successful");
+            if (user.role === "admin") {
+                navigate("/admin");
+            } else if (user.role === "seller") {
+                navigate("/seller/add-product");
+            } else {
+                navigate("/products");
+            }
         }
         catch(error){
-            alert(
-                error.response?.data?.message || "Login Failed"
-            )
+            toast.error(error.response?.data?.message || "Login Failed");
+        }
+    }
+
+    const handleGoogleLogin = async(credentialResponse) =>{
+        try{
+            const response = await API.post("/auth/google" , {
+                credential: credentialResponse.credential
+            });
+            login(
+                response.data.user,
+                response.data.token
+            );
+            let user = response.data.user;
+            if (user.role === "admin") {
+                navigate("/admin");
+            } else if (user.role === "seller") {
+                navigate("/seller");
+            } else {
+                navigate("/products");
+            }
+        }
+        catch(error){
+            console.log(error);
         }
     }
 
@@ -63,6 +93,11 @@ const Login = () =>{
                     Login
                 </button>
             </form>
+            <GoogleLogin 
+            onSuccess={handleGoogleLogin}
+            onError={()=>{
+                console.log("Google Login Failed");
+            }}></GoogleLogin>
         </div>
     )
 }

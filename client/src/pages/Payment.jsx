@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import API from "../api/axios";
+import { toast } from "react-toastify";
+import { useNotification } from "../context/NotificationContext";
 
 const Payment  = () =>{
 
+    const {addNotification} = useNotification();
     const navigate = useNavigate();
     const handlePayment = async() =>{
         const success = Math.random() > 0.3;
@@ -12,10 +15,18 @@ const Payment  = () =>{
             );
             await API.post("/orders",order);
             localStorage.removeItem("pendingOrder");
+            toast.success(
+                "Order placed successfully"
+            );
+            addNotification({
+                type: "order",
+                message:
+                    "Order placed successfully"
+            });
             navigate("/Payment-success");
         }
         else{
-            alert("Payment Failed");
+            toast.error("Payment Failed");
         }
         
         
